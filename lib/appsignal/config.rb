@@ -77,6 +77,7 @@ module Appsignal
       "APPSIGNAL_FILES_WORLD_ACCESSIBLE"         => :files_world_accessible,
       "APPSIGNAL_REQUEST_HEADERS"                => :request_headers,
       "APPSIGNAL_TRANSACTION_DEBUG_MODE"         => :transaction_debug_mode,
+      "APPSIGNAL_FILTER_DATA_KEYS"               => :filter_data_keys,
       "APP_REVISION"                             => :revision
     }.freeze
 
@@ -222,6 +223,7 @@ module Appsignal
       ENV["_APPSIGNAL_DNS_SERVERS"]                  = config_hash[:dns_servers].join(",")
       ENV["_APPSIGNAL_FILES_WORLD_ACCESSIBLE"]       = config_hash[:files_world_accessible].to_s
       ENV["_APPSIGNAL_TRANSACTION_DEBUG_MODE"]       = config_hash[:transaction_debug_mode].to_s
+      ENV["_APPSIGNAL_FILTER_DATA_KEYS"]             = config_hash[:filter_data_keys].join(',')
       ENV["_APP_REVISION"]                           = config_hash[:revision].to_s
     end
 
@@ -346,8 +348,9 @@ module Appsignal
 
       # Configuration with array of strings type
       %w[APPSIGNAL_IGNORE_ACTIONS APPSIGNAL_IGNORE_ERRORS
-         APPSIGNAL_IGNORE_NAMESPACES APPSIGNAL_FILTER_PARAMETERS
-         APPSIGNAL_FILTER_SESSION_DATA APPSIGNAL_REQUEST_HEADERS].each do |var|
+         iPPSIGNAL_IGNORE_NAMESPACES APPSIGNAL_FILTER_PARAMETERS
+         APPSIGNAL_FILTER_SESSION_DATA APPSIGNAL_REQUEST_HEADERS
+         APPSIGNAL_FILTER_DATA_KEYS].each do |var|
         env_var = ENV[var]
         next unless env_var
         config[ENV_TO_KEY_MAPPING[var]] = env_var.split(",")
