@@ -126,7 +126,11 @@ def download_archive(type)
     report["download"]["download_url"] = download_url
 
     begin
-      return open(download_url, :ssl_ca_cert => CA_CERT_PATH)
+      return open(
+        download_url,
+        :ssl_ca_cert => CA_CERT_PATH,
+        :proxy => Gem.configuration[:http_proxy]
+      )
     rescue
       next
     end
